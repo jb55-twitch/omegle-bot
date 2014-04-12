@@ -5,8 +5,12 @@
   "repository": {
     "url": "git://github.com/jb55/omegle-bot.git"
   },
+  "bin": {
+    "omega-spell": "./index.js"
+  },
   "main": "index.js",
   "scripts": {
+    "start": "./index.js",
     "test": "mocha -r should -R spec"
   },
   "dependencies": {
