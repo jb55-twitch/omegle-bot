@@ -1,0 +1,19 @@
+{
+  "name": "omegle-bot",
+  "description": "omegle-bot",
+  "version": "0.0.0",
+  "repository": {
+    "url": "git://github.com/jb55/omegle-bot.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "dependencies": {
+    "omegle": "*"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  }
+}
