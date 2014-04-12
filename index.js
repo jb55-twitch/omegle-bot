@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 
 var Omegle = require('omegle').Omegle;
+var async = require('async');
+var spell = require('./lib/spell')
+var summarize = require('./lib/summarize')
 
 module.exports = function() {
   var om = new Omegle();
@@ -39,13 +42,28 @@ module.exports = function() {
       console.log.apply(null, args);
     });
   });
+  
+  function sender(line, done){
+    om.send(line, function(){
+      console.log("sent message " + line);
+      done();
+    });
+  }
 
-  om.on('gotMessage', function(message){
-    var reverse = message.split("").reverse().join("");
-    om.send(reverse, function(){
-      console.log("sent message: " + reverse);
+  om.on('gotMessage', function(msg){
+    var words = msg.split(" ");
+    spell(words, function(err, mispelled){
+      var lines = summarize(words, mispelled);
+      async.each(lines, sender.bind(null));
     });
   });
+
+//om.on('gotMessage', function(message){
+//  var reverse = message.split("").reverse().join("");
+//  om.send(reverse, function(){
+//    console.log("sent message: " + reverse);
+//  });
+//});
 
 };
 
